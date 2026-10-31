@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UML Class Diagram - MVC To-Do Application</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  body {
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .header h1 {
+    font-size: 26px;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 14px;
+    color: #64748b;
+  }
+  .diagram-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+    max-width: 1000px;
+    width: 100%;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .print-btn {
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .print-btn:hover {
+    background: #1d4ed8;
+  }
+  @media print {
+    body { background: white; padding: 0; }
+    .print-btn, .instructions { display: none; }
+    .diagram-container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>UML Class Diagram - To-Do App (MVC, Singleton, Observer)</h1>
+  <p>Student ID: 2331200162 | Name: Tien Van Man | Software Engineering - Lab 3</p>
+</div>
+
+<div class="diagram-container">
+  <svg viewBox="0 0 950 560" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155" />
+      </marker>
+    </defs>
+
+    <rect width="950" height="560" fill="#ffffff" rx="8" />
+
+    <!-- ================= CONTROLLER CLASS ================= -->
+    <g transform="translate(330, 20)">
+      <rect x="0" y="0" width="290" height="40" fill="#2563eb" rx="6" />
+      <text x="145" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Controller</text>
+      <text x="145" y="-6" text-anchor="middle" font-size="12" fill="#2563eb" font-style="italic">&lt;&lt;Mediator / Intermediary&gt;&gt;</text>
+      
+      <rect x="0" y="40" width="290" height="155" fill="#f8fafc" stroke="#2563eb" stroke-width="2" rx="0 0 6 6" />
+      <text x="12" y="62" font-size="13" fill="#1e293b" font-family="monospace">- service: TodoService</text>
+      <text x="12" y="82" font-size="13" fill="#1e293b" font-family="monospace">- view: View</text>
+      <line x1="0" y1="92" x2="290" y2="92" stroke="#cbd5e1" stroke-width="1.5" />
+      <text x="12" y="112" font-size="13" fill="#1e293b" font-family="monospace">+ constructor(service, view)</text>
+      <text x="12" y="132" font-size="13" fill="#1e293b" font-family="monospace">+ initialize(): void</text>
+      <text x="12" y="152" font-size="13" fill="#1e293b" font-family="monospace">+ handleAddTodo(text: string): void</text>
+      <text x="12" y="172" font-size="13" fill="#1e293b" font-family="monospace">+ handleToggleTodo(id: number): void</text>
+      <text x="12" y="188" font-size="13" fill="#1e293b" font-family="monospace">+ handleRemoveTodo(id: number): void</text>
+    </g>
+
+    <!-- ================= MODEL: TodoService CLASS ================= -->
+    <g transform="translate(40, 270)">
+      <rect x="0" y="0" width="350" height="40" fill="#059669" rx="6" />
+      <text x="175" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="white">TodoService</text>
+      <text x="175" y="-6" text-anchor="middle" font-size="12" fill="#059669" font-style="italic">&lt;&lt;Model / Singleton / Subject&gt;&gt;</text>
+      
+      <rect x="0" y="40" width="350" height="215" fill="#f8fafc" stroke="#059669" stroke-width="2" rx="0 0 6 6" />
+      <text x="12" y="62" font-size="13" fill="#1e293b" font-family="monospace">- instance: TodoService {static}</text>
+      <text x="12" y="82" font-size="13" fill="#1e293b" font-family="monospace">- todos: Array&lt;Todo&gt;</text>
+      <text x="12" y="102" font-size="13" fill="#1e293b" font-family="monospace">- observers: Array&lt;View&gt;</text>
+      <line x1="0" y1="112" x2="350" y2="112" stroke="#cbd5e1" stroke-width="1.5" />
+      <text x="12" y="132" font-size="13" fill="#1e293b" font-family="monospace">+ constructor()</text>
+      <text x="12" y="152" font-size="13" fill="#1e293b" font-family="monospace">+ addObserver(observer: View): void</text>
+      <text x="12" y="172" font-size="13" fill="#1e293b" font-family="monospace">+ notify(): void</text>
+      <text x="12" y="192" font-size="13" fill="#1e293b" font-family="monospace">+ addTodo(text: string): void</text>
+      <text x="12" y="212" font-size="13" fill="#1e293b" font-family="monospace">+ toggleTodoComplete(id: number): void</text>
+      <text x="12" y="232" font-size="13" fill="#1e293b" font-family="monospace">+ removeTodo(id: number): void</text>
+      <text x="12" y="250" font-size="13" fill="#1e293b" font-family="monospace">+ getTodos(): Array&lt;Todo&gt;</text>
+    </g>
+
+    <!-- ================= VIEW CLASS ================= -->
+    <g transform="translate(560, 270)">
+      <rect x="0" y="0" width="350" height="40" fill="#7c3aed" rx="6" />
+      <text x="175" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="white">View</text>
+      <text x="175" y="-6" text-anchor="middle" font-size="12" fill="#7c3aed" font-style="italic">&lt;&lt;View / Observer&gt;&gt;</text>
+      
+      <rect x="0" y="40" width="350" height="215" fill="#f8fafc" stroke="#7c3aed" stroke-width="2" rx="0 0 6 6" />
+      <text x="12" y="62" font-size="13" fill="#1e293b" font-family="monospace">- input: HTMLInputElement</text>
+      <text x="12" y="82" font-size="13" fill="#1e293b" font-family="monospace">- addButton: HTMLButtonElement</text>
+      <text x="12" y="102" font-size="13" fill="#1e293b" font-family="monospace">- todoList: HTMLUListElement</text>
+      <line x1="0" y1="112" x2="350" y2="112" stroke="#cbd5e1" stroke-width="1.5" />
+      <text x="12" y="132" font-size="13" fill="#1e293b" font-family="monospace">+ constructor()</text>
+      <text x="12" y="152" font-size="13" fill="#1e293b" font-family="monospace">+ update(todos: Array&lt;Todo&gt;): void</text>
+      <text x="12" y="172" font-size="13" fill="#1e293b" font-family="monospace">+ bindAddTodo(handler: Function): void</text>
+      <text x="12" y="192" font-size="13" fill="#1e293b" font-family="monospace">+ bindToggleTodo(handler: Function): void</text>
+      <text x="12" y="212" font-size="13" fill="#1e293b" font-family="monospace">+ bindRemoveTodo(handler: Function): void</text>
+    </g>
+
+    <!-- Arrows -->
+    <path d="M 390 215 L 250 270" stroke="#334155" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+    <text x="280" y="235" font-size="12" fill="#475569" font-weight="600">updates model</text>
+
+    <path d="M 560 215 L 700 270" stroke="#334155" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+    <text x="635" y="235" font-size="12" fill="#475569" font-weight="600">binds events</text>
+
+    <path d="M 680 270 L 580 215" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrow)" fill="none" />
+    <text x="590" y="260" font-size="11" fill="#64748b" font-style="italic">triggers</text>
+
+    <path d="M 390 380 L 560 380" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)" fill="none" />
+    <text x="475" y="370" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">notify() / update()</text>
+    <text x="475" y="398" text-anchor="middle" font-size="11" fill="#059669">&lt;&lt;Observer Pattern&gt;&gt;</text>
+
+  </svg>
+</div>
+
+<button class="print-btn" onclick="window.print()">In hoặc Lưu thành file PDF (Print to PDF)</button>
+
+</body>
+</html>
